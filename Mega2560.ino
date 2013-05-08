@@ -108,8 +108,9 @@ void loop()
     powerStates();
 
     powerVoltage = sensorValue[5] / 1024 * 3.3 * 4.3;
-    if ( powerVoltage > 9.0){
-     K= 11.0 / powerVoltage * 8.5;
+    if ( powerVoltage > 7.0){
+     K= 1 * ( 11.0 / powerVoltage * 0.85 );
+
     }
     else K = 0; 
 
