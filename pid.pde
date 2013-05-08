@@ -101,10 +101,10 @@ float updatePidc(float targetPosition,float sOffset, float currentPosition , flo
 
 
                 
-  turn = K * tOffset * (1 - constrain((wheelVelocity/velocityScaleTurning), 0, 1));          
+  turn = K * Kpower * tOffset * (1 - constrain((wheelVelocity/velocityScaleTurning), 0, 1));          
 
 
-  return constrain(K*(pTerm + iTerm + dTerm ), -100, 100);
+  return constrain(K * Kpower *(pTerm + iTerm + dTerm ), -100, 100);
 }
 
 

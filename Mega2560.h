@@ -129,7 +129,8 @@ long count = 0, last_count = 0;
 #define   GUARD_GAIN   20.0               
 
 int PIDmode=1;
-volatile float K =  0.0 ;      
+volatile float K =  0.0 ;
+volatile float Kpower =  0.0 ;       
 volatile float Kp = 6.0;  // high GC                     
 volatile float Ki = 0.6 ; //                       
 volatile float Kd = 1.5;  // 0.3 

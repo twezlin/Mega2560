@@ -108,11 +108,11 @@ void loop()
     powerStates();
 
     powerVoltage = sensorValue[5] / 1024 * 3.3 * 4.3;
-    if ( powerVoltage > 7.0){
-     K= 1 * ( 11.0 / powerVoltage * 0.85 );
+    if ( powerVoltage > 9.0){
+     Kpower= 1 * ( 11.0 / powerVoltage * 0.85 );
 
     }
-    else K = 0; 
+    else Kpower = 0; 
 
     totalCurrent = ( sensorValue[3] + sensorValue[4] ) / 1024 * 3.3 / 0.13;
     if (totalCurrent > 10 ){

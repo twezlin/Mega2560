@@ -10,7 +10,7 @@ void controlByNunchuk(){
     nunchuk.update();
     
     if( (nunchuk.zButton != lastzButton) && (nunchuk.zButton == 1)){
-      if(K == 0) K = 1 * ( 11.0 / powerVoltage * 0.85 );
+      if(K == 0) K = 1;
       else K =0;
     }
     lastzButton = nunchuk.zButton; 
