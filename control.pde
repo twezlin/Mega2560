@@ -1,6 +1,6 @@
 
 float li = 0,lj = 0;
-float FMax = 5.0,TMax = 7.0;
+float FMax = 1.0,TMax = 7.0;
 
 void controlByNunchuk(){
 

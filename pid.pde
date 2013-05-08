@@ -60,7 +60,7 @@ float updatePidc(float targetPosition,float sOffset, float currentPosition , flo
       else // Inside zone C
         xTerm = Kx * positionError * positionScaleC;  // < 4r : 2
     
-      xTerm = constrain(xTerm, -10, 10);  
+      xTerm = constrain(xTerm, -5, 5);  
 
       targetPosition -= xTerm;
 
