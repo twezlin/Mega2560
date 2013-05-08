@@ -29,19 +29,13 @@ float updatePidc(float targetPosition,float sOffset, float currentPosition , flo
   lastSteerMove = steerMove;
 
   if( (steerMove == 1 ) || ( steerMove == 2 ) ){  // moving forward or backward
-    sOffset -= wheelVelocity*Ksp; 
-    targetPosition += sOffset;
-    vTerm = constrain(wheelVelocity * Ksv, -20, 20);      
-    targetPosition -= vTerm ;  
-/*    
+ 
      spTerm = (sOffset - wheelVelocity ) * Ksp; 
      siTerm += (sOffset - wheelVelocity ) * Ksi;
      siTerm = constrain(siTerm, -5,5);
      sdTerm = wheelAcc * Ksd;
      targetPosition += ( spTerm + siTerm - sdTerm );
-     vTerm = constrain(wheelVelocity * Ksv, -20, 20);      
-     targetPosition -= vTerm ;  
-*/     
+
      steerHold = 0;
 
    } 
@@ -134,83 +128,6 @@ float updatePidc(float targetPosition,float sOffset, float currentPosition , flo
   return constrain(K*(pTerm + iTerm + dTerm ), -100, 100);
 }
 
-  /*
-  p1 = Kp * a1;
-  p2 = p1 + k1 * Kp * (a2-a1);
-  p3 = p2 + k2 * Kp * (a3-a2);
-  if ( absError < a1 ) pTerm = Kp * a_error;  
-  else if (absError < a2){
-    if (a_error > 0) pTerm = k1 * Kp * (a_error-a1)+ p1;
-    else pTerm = k1 * Kp * (a_error+a1) - p1;
-  } 
-  else if (absError < a3){
-    if (a_error > 0) pTerm = k2 * Kp * (a_error-a2) + p2;
-    else pTerm = k2 * Kp * (a_error+a2) - p2;
-  } 
-  else {
-    if (a_error > 0) pTerm = k3 * Kp * (a_error-a3) + p3;
-    else pTerm = k3 * Kp * (a_error+a3) - p3;
-  }  
-  */
-
-/*
-float updatePida(float targetPosition, float currentPosition)   {
-  float absError;
-  float p1, p2, p3;
-
-  positionError = (float)(wheelPosition - wheelPositionTarget) / 928;  //per revolution
-
-  if (abs(positionError) > zoneA) // Inside zone A
-      xTerm = Kx * positionError * positionScaleA;  // > 8r : 16 degree
-  else if (abs(positionError) > zoneB) // Inside zone B
-      xTerm = Kx * positionError * positionScaleB;  // > 4r : 4
-  else // Inside zone C
-      xTerm = Kx * positionError * positionScaleC;  // < 4r : 2
-
-  xTerm = constrain(xTerm, -20, 20);    
-  targetPosition -= xTerm;     
-
-  vTerm = constrain(wheelVelocity * Kv, -20, 20);      
-  targetPosition -= vTerm ;     
-
-  a_error = currentPosition - targetPosition;
-  absError = abs(a_error);
-
-  ampError = (alpha * absError) + (1.0 - alpha) * ampError;
-  aveAngle = (alpha * absError) + (1.0 - alpha) * aveAngle;
-  
-
-  //pTerm = Kp * a_error;
-  
-  p1 = Kp * a1;
-  p2 = p1 + k1 * Kp * (a2-a1);
-  p3 = p2 + k2 * Kp * (a3-a2);
-  if ( absError < a1 ) pTerm = Kp * a_error;  
-  else if (absError < a2){
-    if (a_error > 0) pTerm = k1 * Kp * (a_error-a1)+ p1;
-    else pTerm = k1 * Kp * (a_error+a1) - p1;
-  } 
-  else if (absError < a3){
-    if (a_error > 0) pTerm = k2 * Kp * (a_error-a2) + p2;
-    else pTerm = k2 * Kp * (a_error+a2) - p2;
-  } 
-  else {
-    if (a_error > 0) pTerm = k3 * Kp * (a_error-a3) + p3;
-    else pTerm = k3 * Kp * (a_error+a3) - p3;
-  }  
-  
-
-
-  integrated_error += Ki * a_error;     
-  integrated_error = constrain(integrated_error, -GUARD_GAIN, GUARD_GAIN);                                  
-  iTerm = integrated_error;
-  dTerm = Kd * (a_error - last_a_error);                            
-  last_a_error = a_error; 
-                
-                      
-  return constrain(K*(pTerm + iTerm + dTerm ), -100, 100);
-}
-*/
 
 
 
