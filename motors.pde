@@ -66,7 +66,7 @@ void Drive_Motor()  {
     }
  }
   torque_R = constrain(torque_R, 0, 100);
-  torque_L = constrain(torque_L * 1.0, 0, 100);
+  torque_L = constrain(torque_L * Kw, 0, 100);
   setPWM(rightPWM,torque_R); // Set high
   setPWM(leftPWM,torque_L); // Set high                    // motors are not built equal...
 }

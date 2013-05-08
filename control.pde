@@ -346,8 +346,10 @@ void test(){
   	}
     else if (testMode == 4){
 
-      Serial3.print(" V ");  
-      Serial3.print(wheelVelocity,1);
+      Serial3.print(" Vr ");  
+      Serial3.print(wheelVelocityRAve,2);
+      Serial3.print(" Vl ");  
+      Serial3.print(wheelVelocityLAve,2);      
       Serial3.print(" h ");  
       Serial3.print(steerHold);      
       Serial3.print(" _ ");  

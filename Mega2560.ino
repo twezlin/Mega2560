@@ -57,11 +57,24 @@ void loop()
   loopCounter++;
   if (loopCounter ==  loops) {    // from 1 - 10, update velocity 20Hz
     loopCounter = 0; // Reset loop counter
+    wheelPositionR = readRightEncoder();   // 464 one rotation
+    wheelPositionL = readLeftEncoder();   // 464 bone rotation
+    wheelVelocityR = (float)((wheelPositionR - lastWheelPositionR) * (100 / loops)) / 464;    // max 6 rps ,  
+    lastWheelPositionR = wheelPositionR;
+    wheelVelocityL = (float)((wheelPositionL - lastWheelPositionL) * (100 / loops)) / 464;   // max 6 rps ,  
+    lastWheelPositionL = wheelPositionL;
+    wheelVelocityRAve = 0.2 * wheelVelocityR + 0.8 * lastWheelVelocityR;
+    wheelVelocityLAve = 0.2 * wheelVelocityL + 0.8 * lastWheelVelocityL;
+
     wheelPosition = readLeftEncoder() + readRightEncoder();   // 464*2=928 one rotation
     wheelVelocity = (float)(wheelPosition - lastWheelPosition) * (100 / loops)  / 928;   // max 6 rps ,  
     lastWheelPosition = wheelPosition;
-    wheelAcc = (wheelVelocity - lastWheelVelocity);
+
+
+    wheelAcc = (wheelVelocity - lastWheelVelocity) * (100 / loops);
     lastWheelVelocity = wheelVelocity;
+    lastWheelVelocityR = wheelVelocityR;
+    lastWheelVelocityL = wheelVelocityL;    
 
   }
  

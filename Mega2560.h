@@ -95,8 +95,13 @@ double sppData1 = 0;
 double sppData2 = 0;
 
 long wheelPosition = 0, wheelPositionTarget = 0;
+long wheelPositionR =0, wheelPositionL = 0;
 long lastWheelPosition = 0;
+long lastWheelPositionR =0, lastWheelPositionL = 0;
+float wheelVelocityR = 0,wheelVelocityL = 0;
+float wheelVelocityRAve = 0,wheelVelocityLAve = 0;
 float wheelVelocity = 0,lastWheelVelocity = 0, wheelAcc = 0;
+float lastWheelVelocityR = 0, lastWheelVelocityL = 0; 
 float positionError = 0; //per revolution
 float x_error = 0; // degree
 float a_error,ampError = 0, aveAngle = 0; 
@@ -130,10 +135,11 @@ volatile float Ki = 0.6 ; //
 volatile float Kd = 1.5;  // 0.3 
 volatile float Kx = 1;   // position
 volatile float Kv = 5;  // velocity compensation 4
-volatile float Ksp = 5.0;  // moving velocity
-volatile float Ksd = 0.05;  // moving velocity
+volatile float Ksp = 5.0;  // velocity
+volatile float Ksd = 0.05;  // velocity
 volatile float Ksi = 0.02;
 volatile float Ksv = 0;  // 3
+volatile float Kw = 1.0;  // Vr/Vl
 
 
 float last_a_error = 0;

@@ -41,7 +41,7 @@ float updatePidc(float targetPosition,float sOffset, float currentPosition , flo
    } 
   else{  // stop or hold
     if ( ( steerMove == 0 ) && ( steerHold == 0 ) ){ // stop
-      if ( ( wheelVelocity < 0.2 ) && ( absError < 1 ) ){ // enter hold
+      if ( ( abs(wheelVelocity) < 0.1 ) && ( absError < 1 ) ){ // enter hold
         wheelPositionTarget = wheelPosition;
         steerHold = 1;
         reset_iterm = true;
@@ -77,28 +77,8 @@ float updatePidc(float targetPosition,float sOffset, float currentPosition , flo
 
   aveAngle = (beta * a_error) + (1.0 - beta) * aveAngle;
 
-  if ( PIDmode == 1){
-    pTerm = Kp * a_error;
-  }
-  else {
-    p1 = Kp * a1;
-    p2 = p1 + k1 * Kp * (a2-a1);
-    p3 = p2 + k2 * Kp * (a3-a2);
-    if ( absError < a1 ) pTerm = Kp * a_error;  
-    else if (absError < a2){
-      if (a_error > 0) pTerm = k1 * Kp * (a_error-a1)+ p1;
-      else pTerm = k1 * Kp * (a_error+a1) - p1;
-    } 
-    else if (absError < a3){
-      if (a_error > 0) pTerm = k2 * Kp * (a_error-a2) + p2;
-      else pTerm = k2 * Kp * (a_error+a2) - p2;
-    } 
-    else {
-      if (a_error > 0) pTerm = k3 * Kp * (a_error-a3) + p3;
-      else pTerm = k3 * Kp * (a_error+a3) - p3;
-    }  
-  }
-  
+  pTerm = Kp * a_error;
+ 
 
   if( reset_iterm == true ){
     reset_iterm = false;
@@ -108,15 +88,18 @@ float updatePidc(float targetPosition,float sOffset, float currentPosition , flo
   integrated_error = constrain(integrated_error, -5, 5);                                  
   iTerm = integrated_error;
 
-  if ( PIDmode == 1 ){
-    dTerm = Kd * (a_error - last_a_error);   
-  }
-  else{
-    KdFactor = constrain(( 1 + ampError / 1.0 ),1,10);
-    dTerm = Kd * KdFactor * (a_error - last_a_error);       
-  }
+  dTerm = Kd * (a_error - last_a_error);   
                      
   last_a_error = a_error; 
+
+  if ( ( turnOffset == 0 ) && ( steerMove != 0 ) && ( abs(wheelVelocityLAve) > 0.1 ) ){
+    Kw = wheelVelocityRAve / wheelVelocityLAve;
+  }
+  else {
+    Kw = 1;
+  }
+
+
                 
   turn = K * tOffset * (1 - constrain((wheelVelocity/velocityScaleTurning), 0, 1));          
 
