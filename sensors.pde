@@ -34,14 +34,15 @@ void aveSensors(){
   }//(618 - 413)/2 = 102.5 330/3.3 = x/1024
 }
 
-void powerCurrent(){
+void powerStates(){
   long v;
-  for(int n = 3 ; n<5 ; n++){
+  for(int n = 3 ; n<6 ; n++){
     v=0;
     for(int i = 0 ; i< 50 ; i++) v += readSensor(n);
     sensorValue[n] = v/50;
   }
 }
+
 
 int readSensor(int channel){
   return(analogRead(channel));

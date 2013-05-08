@@ -152,7 +152,7 @@ bool serialprint = true;
 
 int testMode = 4;
 int lastzButton = 0;
-float totalCurrent;
+float totalCurrent, powerVoltage;
 float tc=0.2,a;
 
 float alpha = 0.1,beta = 0.01;

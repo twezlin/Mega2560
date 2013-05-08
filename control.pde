@@ -363,8 +363,12 @@ void test(){
       Serial3.print(Ksi,3);  
       Serial3.print(",");
       Serial3.print(Ksd,3);  
-      Serial3.print(",");
+      Serial3.print(" I ");
       Serial3.print(totalCurrent,1); 
+      Serial3.print(" V ");
+      Serial3.print(powerVoltage,1); 
+
+
 /* 
       Serial3.print(" anaX ");  
       Serial3.print(nunchuk.analogX,1);

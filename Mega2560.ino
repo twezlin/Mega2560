@@ -105,7 +105,14 @@ void loop()
     controlByPC();
     controlByNunchuk();  
     test();
-    powerCurrent();
+    powerStates();
+
+    powerVoltage = sensorValue[5] / 1024 * 3.3 * 4.3;
+    if ( powerVoltage > 9.0){
+     K= 11.0 / powerVoltage * 8.5;
+    }
+    else K = 0; 
+
     totalCurrent = ( sensorValue[3] + sensorValue[4] ) / 1024 * 3.3 / 0.13;
     if (totalCurrent > 10 ){
       steerMove = 0;
@@ -114,6 +121,7 @@ void loop()
       wheelPositionTarget = wheelPosition;
       K = 0;       
     }
+
 
   }
 
