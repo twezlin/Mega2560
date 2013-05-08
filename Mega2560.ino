@@ -60,7 +60,7 @@ void loop()
     wheelPosition = readLeftEncoder() + readRightEncoder();   // 464*2=928 one rotation
     wheelVelocity = (float)(wheelPosition - lastWheelPosition) * (100 / loops)  / 928;   // max 6 rps ,  
     lastWheelPosition = wheelPosition;
-    wheelAcc = (wheelVelocity - lastWheelVelocity) * (100 / loops);
+    wheelAcc = (wheelVelocity - lastWheelVelocity);
     lastWheelVelocity = wheelVelocity;
 
   }

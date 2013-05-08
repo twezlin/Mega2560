@@ -32,16 +32,15 @@ float updatePidc(float targetPosition,float sOffset, float currentPosition , flo
  
      spTerm = (sOffset - wheelVelocity ) * Ksp; 
      siTerm += (sOffset - wheelVelocity ) * Ksi;
-     siTerm = constrain(siTerm, -5,5);
+     siTerm = constrain(siTerm, -10,10);
      sdTerm = wheelAcc * Ksd;
      targetPosition += ( spTerm + siTerm - sdTerm );
 
      steerHold = 0;
 
    } 
-   else{  // stop or hold
-
-     if ( ( steerMove == 0 ) && ( steerHold == 0 ) ){ // stop
+  else{  // stop or hold
+    if ( ( steerMove == 0 ) && ( steerHold == 0 ) ){ // stop
       if ( ( wheelVelocity < 0.2 ) && ( absError < 1 ) ){ // enter hold
         wheelPositionTarget = wheelPosition;
         steerHold = 1;
@@ -49,27 +48,24 @@ float updatePidc(float targetPosition,float sOffset, float currentPosition , flo
       } 
      }  
 
-     if ( steerHold == 1 ){ // hold
-
+    if ( steerHold == 1 ){ // hold
       positionError = (float)(wheelPosition - wheelPositionTarget) / 928;  //per revolution
-    
+  
       if (abs(positionError) > zoneA) // Inside zone A
         xTerm = Kx * positionError * positionScaleA;  // > 8r : 16 degree
       else if (abs(positionError) > zoneB) // Inside zone B
         xTerm = Kx * positionError * positionScaleB;  // > 4r : 4
       else // Inside zone C
         xTerm = Kx * positionError * positionScaleC;  // < 4r : 2
-    
-      xTerm = constrain(xTerm, -5, 5);  
+  
+    xTerm = constrain(xTerm, -5, 5);  
+    targetPosition -= xTerm;
+   } 
 
-      targetPosition -= xTerm;
+    vTerm = constrain(wheelVelocity * Kv, -20, 20);      
+    targetPosition -= vTerm ;  
 
-     } 
-
-     vTerm = constrain(wheelVelocity * Kv, -20, 20);      
-     targetPosition -= vTerm ;  
-
-     siTerm = 0;
+    siTerm = 0;
   }
   
 

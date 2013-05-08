@@ -131,8 +131,8 @@ volatile float Kd = 1.5;  // 0.3
 volatile float Kx = 1;   // position
 volatile float Kv = 5;  // velocity compensation 4
 volatile float Ksp = 5.0;  // moving velocity
-volatile float Ksd = 0.0;  // moving velocity
-volatile float Ksi = 0.0;
+volatile float Ksd = 0.05;  // moving velocity
+volatile float Ksi = 0.02;
 volatile float Ksv = 0;  // 3
 
 
