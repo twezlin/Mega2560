@@ -106,7 +106,7 @@ void loop()
     controlByNunchuk();  
     test();
     powerCurrent();
-    totalCurrent = ( sensorValue[3] + sensorValue[4] ) / 1024 * 3 / 0.13;
+    totalCurrent = ( sensorValue[3] + sensorValue[4] ) / 1024 * 3.3 / 0.13;
     if (totalCurrent > 10 ){
       steerMove = 0;
       reset_iterm = true;
