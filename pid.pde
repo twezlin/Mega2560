@@ -15,7 +15,6 @@ float velocityScaleMove = 0.3;    // v 3rps : -10
 float velocityScaleStop = 1.0;
 float velocityScaleTurning = 3.0;
 
-
 float updatePidc(float targetPosition,float sOffset, float currentPosition , float tOffset){
   float p1, p2, p3;
   float KdFactor;
@@ -26,19 +25,19 @@ float updatePidc(float targetPosition,float sOffset, float currentPosition , flo
         reset_iterm = true;
     }
   }
-  lastSteerMove = steerMove;
+
 
   if( (steerMove == 1 ) || ( steerMove == 2 ) ){  // moving forward or backward
- 
-     spTerm = (sOffset - wheelVelocity ) * Ksp; 
-     siTerm += (sOffset - wheelVelocity ) * Ksi;
-     siTerm = constrain(siTerm, -10, 10);
-     sdTerm = wheelAcc * Ksd;
-     targetPosition += ( spTerm + siTerm - sdTerm );
-
-     steerHold = 0;
-
-   } 
+    if ( steerMove != lastSteerMove ){
+      siTerm = 0;
+    } 
+    spTerm = (sOffset - wheelVelocity ) * Ksp; 
+    siTerm += (sOffset - wheelVelocity ) * Ksi;
+    siTerm = constrain(siTerm, -5, 5);
+    sdTerm = wheelAcc * Ksd;
+    targetPosition += ( spTerm + siTerm - sdTerm ); 
+    steerHold = 0;
+  } 
   else{  // stop or hold
     if ( ( steerMove == 0 ) && ( steerHold == 0 ) ){ // stop
       if ( ( abs(wheelVelocity) < 0.1 ) && ( absError < 1 ) ){ // enter hold
@@ -68,7 +67,7 @@ float updatePidc(float targetPosition,float sOffset, float currentPosition , flo
     siTerm = 0;
   }
   
-
+  lastSteerMove = steerMove;
 
   a_error = currentPosition - targetPosition;
   absError = abs(a_error);
