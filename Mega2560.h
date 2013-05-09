@@ -99,7 +99,7 @@ long wheelPositionR =0, wheelPositionL = 0;
 long lastWheelPosition = 0;
 long lastWheelPositionR =0, lastWheelPositionL = 0;
 float wheelVelocityR = 0,wheelVelocityL = 0;
-float wheelVelocityRAve = 0,wheelVelocityLAve = 0;
+float wheelVelocityRAve = 0,wheelVelocityLAve = 0, wheelVelocityAve = 0;
 float wheelVelocity = 0,lastWheelVelocity = 0, wheelAcc = 0;
 float lastWheelVelocityR = 0, lastWheelVelocityL = 0; 
 float positionError = 0; //per revolution
@@ -136,9 +136,9 @@ volatile float Ki = 0.6 ; //
 volatile float Kd = 1.5;  // 0.3 
 volatile float Kx = 1;   // position
 volatile float Kv = 5;  // velocity compensation 4
-volatile float Ksp = 3.85;  // velocity
-volatile float Ksd = 0.08;  // velocity
-volatile float Ksi = 0.02;
+volatile float Ksp = 4.5;  // velocity
+volatile float Ksd = 0.1;  // velocity
+volatile float Ksi = 0.04;
 volatile float Ksv = 0;  // 3
 volatile float Kw = 1.0;  // Vr/Vl
 

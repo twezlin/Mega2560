@@ -65,6 +65,7 @@ void loop()
     lastWheelPositionL = wheelPositionL;
     wheelVelocityRAve = 0.2 * wheelVelocityR + 0.8 * lastWheelVelocityR;
     wheelVelocityLAve = 0.2 * wheelVelocityL + 0.8 * lastWheelVelocityL;
+    wheelVelocityAve = 0.04 * wheelVelocity + 0.96 * lastWheelVelocity;
 
     wheelPosition = readLeftEncoder() + readRightEncoder();   // 464*2=928 one rotation
     wheelVelocity = (float)(wheelPosition - lastWheelPosition) * (100 / loops)  / 928;   // max 6 rps ,  
@@ -83,14 +84,14 @@ void loop()
   torque = updatePidc(setPoint, targetOffset, actAngle, turnOffset);     
 
   // safe proof
-  if ( abs(wheelVelocity) > 5.5 ){
+  if ( abs(wheelVelocityAve) > 5.8 ){
     steerMove = 0;
     reset_iterm = true;
     steerHold = 0;
     wheelPositionTarget = wheelPosition;
     K = 0;  
   } 
-  if(abs(actAngle-setPoint) < 60) Drive_Motor(); 
+  if(abs(actAngle-setPoint) < 70) Drive_Motor(); 
   else{
     steerMove = 0;
     reset_iterm = true;

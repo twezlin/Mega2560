@@ -32,7 +32,7 @@ float updatePidc(float targetPosition,float sOffset, float currentPosition , flo
  
      spTerm = (sOffset - wheelVelocity ) * Ksp; 
      siTerm += (sOffset - wheelVelocity ) * Ksi;
-     siTerm = constrain(siTerm, -10,10);
+     siTerm = constrain(siTerm, -10, 10);
      sdTerm = wheelAcc * Ksd;
      targetPosition += ( spTerm + siTerm - sdTerm );
 
