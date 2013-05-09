@@ -136,8 +136,8 @@ volatile float Ki = 0.6 ; //
 volatile float Kd = 1.5;  // 0.3 
 volatile float Kx = 1;   // position
 volatile float Kv = 5;  // velocity compensation 4
-volatile float Ksp = 5.0;  // velocity
-volatile float Ksd = 0.05;  // velocity
+volatile float Ksp = 3.85;  // velocity
+volatile float Ksd = 0.08;  // velocity
 volatile float Ksi = 0.02;
 volatile float Ksv = 0;  // 3
 volatile float Kw = 1.0;  // Vr/Vl
@@ -153,7 +153,7 @@ bool serialprint = true;
 
 int testMode = 4;
 int lastzButton = 0;
-float totalCurrent, powerVoltage;
+float totalCurrent = 0, powerVoltage = 0, powerVoltageLast = 0, powerVoltageAve = 0;
 float tc=0.2,a;
 
 float alpha = 0.1,beta = 0.01;

@@ -83,7 +83,7 @@ void loop()
   torque = updatePidc(setPoint, targetOffset, actAngle, turnOffset);     
 
   // safe proof
-  if ( abs(wheelVelocity) > 5 ){
+  if ( abs(wheelVelocity) > 5.5 ){
     steerMove = 0;
     reset_iterm = true;
     steerHold = 0;
@@ -108,11 +108,15 @@ void loop()
     powerStates();
 
     powerVoltage = sensorValue[5] / 1024 * 3.3 * 4.3;
-    if ( powerVoltage > 9.0){
-     Kpower= 1 * ( 11.0 / powerVoltage * 0.85 );
+    powerVoltageAve = 0.1 * powerVoltage + 0.9 * powerVoltageLast;
+    powerVoltageLast = powerVoltage;
 
-    }
-    else Kpower = 0; 
+    if ( ( steerMove == 0 ) && ( steerHold == 1 ) ){ // detect at hold mode with light loading  
+      if ( powerVoltageAve > 9.0){
+        Kpower= constrain( ( 11.0 / powerVoltageAve * 0.8 ), 0, 0.9);
+      }
+      else Kpower = 0; 
+    }  
 
     totalCurrent = ( sensorValue[3] + sensorValue[4] ) / 1024 * 3.3 / 0.13;
     if (totalCurrent > 10 ){
