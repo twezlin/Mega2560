@@ -15,6 +15,8 @@ float velocityScaleMove = 0.3;    // v 3rps : -10
 float velocityScaleStop = 1.0;
 float velocityScaleTurning = 3.0;
 
+float vt = 0.5;
+
 float updatePidc(float targetPosition,float sOffset, float currentPosition , float tOffset){
   float p1, p2, p3;
   float KdFactor;
@@ -61,7 +63,15 @@ float updatePidc(float targetPosition,float sOffset, float currentPosition , flo
       targetPosition -= xTerm;
    } 
 
-    vTerm = constrain(wheelVelocity * Kv, -20, 20);      
+//    vTerm = constrain(wheelVelocity * Kv, -5, 5);    
+   
+    if ( abs(wheelVelocity) > vt ){
+      vTerm = wheelVelocity * Kv;
+    }  
+    else{
+      vTerm = wheelVelocity * abs(wheelVelocity) / vt * Kv;    
+    }
+    
     targetPosition -= vTerm ;  
 
     siTerm = 0;
@@ -92,6 +102,7 @@ float updatePidc(float targetPosition,float sOffset, float currentPosition , flo
   last_a_error = a_error; 
 
   if ( ( turnOffset == 0 ) && ( steerMove != 0 ) && ( abs(wheelVelocityLAve) > 0.1 ) ){
+//  if ( turnOffset == 0  ){
     Kw = wheelVelocityRAve / wheelVelocityLAve;
   }
   else {
