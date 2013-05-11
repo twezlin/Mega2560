@@ -131,11 +131,12 @@ long count = 0, last_count = 0;
 int PIDmode=1;
 volatile float K =  0.0 ;
 volatile float Kpower =  0.0 ;       
-volatile float Kp = 6.0;  // high GC                     
+volatile float Kp = 8.0;  // high GC,   6                  
 volatile float Ki = 0.6 ; //                       
 volatile float Kd = 1.5;  // 0.3 
 volatile float Kx = 1;   // position
-volatile float Kv = 12;  // velocity compensation 4
+volatile float Kv = 0;  // velocity compensation 4
+volatile float Kvh = 0;  // velocity compensation 4
 volatile float Ksp = 4.5;  // velocity
 volatile float Ksd = 0.12;  // velocity
 volatile float Ksi = 0.08;

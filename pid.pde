@@ -40,14 +40,20 @@ float updatePidc(float targetPosition,float sOffset, float currentPosition , flo
     vTerm = constrain(wheelVelocity * Ksv, -50, 50);   
 
   } 
-  else{  // stop or hold
-    if ( ( steerMove == 0 ) && ( steerHold == 0 ) ){ // stop
+  else{  // stop 
+    if ( steerHold == 0 ){ // stop
       if ( ( abs(wheelVelocity) < 0.1 ) && ( absError < 1 ) ){ // enter hold
         wheelPositionTarget = wheelPosition;
         steerHold = 1;
         reset_iterm = true;
       } 
-     }  
+    }
+    else{
+      if (  abs(wheelVelocity) > 0.2 ){
+        steerHold = 0;  
+      }
+
+    }  
 
     if ( steerHold == 1 ){ // hold
       positionError = (float)(wheelPosition - wheelPositionTarget) / 928;  //per revolution
@@ -63,8 +69,14 @@ float updatePidc(float targetPosition,float sOffset, float currentPosition , flo
       targetPosition -= xTerm;
     } 
 
-    vTerm = constrain(wheelVelocity * Kv, -50, 50);      
-//    targetPosition -= vTerm ;  
+    if (steerHold == 1){
+      vTerm = constrain(wheelVelocity * Kv, -50, 50);     
+    }
+    else{
+      vTerm = 0;  
+      targetPosition -= constrain(wheelVelocity * Kvh, -50, 50) ;     
+    }  
+
     siTerm = 0;
   }
   
