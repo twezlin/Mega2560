@@ -33,12 +33,21 @@ float updatePidc(float targetPosition,float sOffset, float currentPosition , flo
     if ( steerMove != lastSteerMove ){
       siTerm = 0;
     } 
-    spTerm = (sOffset - wheelVelocity ) * Ksp; 
+
+    spTerm = (sOffset - wheelVelocity ) * Ksp;
+    if ( abs(wheelVelocityAve) > 1){
+      siTerm += (sOffset - wheelVelocity ) * Ksi;
+      siTerm = constrain(siTerm, -5, 5);
+    }
+    else{
+      siTerm = 0;
+    } 
     siTerm += (sOffset - wheelVelocity ) * Ksi;
     siTerm = constrain(siTerm, -5, 5);
     sdTerm = wheelAcc * Ksd;
     targetPosition += ( spTerm + siTerm - sdTerm ); 
     steerHold = 0;
+
   } 
   else{  // stop 
     if ( steerHold == 0 ){ // stop
