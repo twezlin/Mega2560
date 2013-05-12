@@ -42,7 +42,7 @@ float updatePidc(float targetPosition,float sOffset, float currentPosition , flo
   } 
   else{  // stop 
     if ( steerHold == 0 ){ // stop
-      if ( ( abs(wheelVelocity) < 0.1 ) && ( absError < 1 ) ){ // enter hold
+      if ( ( abs(wheelVelocityAve) < 0.1 ) && ( absError < 1 ) ){ // enter hold
         wheelPositionTarget = wheelPosition;
         steerHold = 1;
         reset_iterm = true;
