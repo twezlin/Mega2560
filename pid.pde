@@ -15,7 +15,7 @@ float velocityScaleMove = 0.3;    // v 3rps : -10
 float velocityScaleStop = 1.0;
 float velocityScaleTurning = 3.0;
 
-float vt = 0.5;
+float vt = 0.2;
 
 float updatePidc(float targetPosition,float sOffset, float currentPosition , float tOffset){
   float p1, p2, p3;
@@ -87,9 +87,11 @@ float updatePidc(float targetPosition,float sOffset, float currentPosition , flo
     else if ( wheelVelocity < -vt ){
       vTerm = ( wheelVelocity + vt ) * Kv;    
     }
+    else{
+      vTerm =0;
+    }
 
-
-    targetPosition -= vTerm ;  
+    targetPosition -= constrain(vTerm, -5,5);  
 
     siTerm = 0;
   }
