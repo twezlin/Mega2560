@@ -73,14 +73,22 @@ float updatePidc(float targetPosition,float sOffset, float currentPosition , flo
    } 
 
 //    vTerm = constrain(wheelVelocity * Kv, -5, 5);    
-   
+/*   
     if ( abs(wheelVelocity) > vt ){
       vTerm = wheelVelocity * Kv;
     }  
     else{
       vTerm = wheelVelocity * abs(wheelVelocity) / vt * Kv;    
     }
-    
+*/
+    if ( wheelVelocity > vt ){
+      vTerm = (wheelVelocity - vt) * Kv;
+    }  
+    else if ( wheelVelocity < -vt ){
+      vTerm = ( wheelVelocity + vt ) * Kv;    
+    }
+
+
     targetPosition -= vTerm ;  
 
     siTerm = 0;
